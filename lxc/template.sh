@@ -459,6 +459,21 @@ ExecStartPre=/bin/sleep 8
 EOF
 }
 
+fix_audio() {
+  mkdir -p "${LXC_ROOTFS}/etc/systemd/user/default.target.wants"
+  mkdir -p "${LXC_ROOTFS}/etc/systemd/user"
+  ln -sf /dev/null "${LXC_ROOTFS}/etc/systemd/user/pulseaudio.service"
+  ln -sf /dev/null "${LXC_ROOTFS}/etc/systemd/user/pulseaudio.socket"
+  rm -f "${LXC_ROOTFS}/etc/systemd/user/default.target.wants/pulseaudio.service"
+  rm -f "${LXC_ROOTFS}/etc/systemd/user/default.target.wants/pulseaudio.socket"
+  ln -sf /usr/lib/systemd/user/pipewire.service \
+    "${LXC_ROOTFS}/etc/systemd/user/default.target.wants/pipewire.service"
+  ln -sf /usr/lib/systemd/user/pipewire-pulse.service \
+    "${LXC_ROOTFS}/etc/systemd/user/default.target.wants/pipewire-pulse.service"
+  ln -sf /usr/lib/systemd/user/wireplumber.service \
+    "${LXC_ROOTFS}/etc/systemd/user/default.target.wants/wireplumber.service"
+}
+
 create_build_dir
 unpack_metadata
 unpack_rootfs
@@ -469,6 +484,7 @@ add_base_config
 replace_template_vars
 fix_tty
 sddm_sleep_hack
+fix_audio
 
 display_creation_message
 
