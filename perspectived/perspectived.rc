@@ -2,3 +2,4 @@ service perspectived /system_ext/bin/perspectived
     class late_start
     user root
     group root system
+    task_profiles MaxPerformance
