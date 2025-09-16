@@ -452,13 +452,6 @@ display_creation_message() {
   fi
 }
 
-sddm_sleep_hack() {
-  mkdir -p "${LXC_ROOTFS}/etc/systemd/system/sddm.service.d"
-  cat <<EOF > "${LXC_ROOTFS}/etc/systemd/system/sddm.service.d/override.conf"
-[Service]
-ExecStartPre=/bin/sleep 8
-EOF
-}
 
 create_build_dir
 unpack_metadata
@@ -469,7 +462,6 @@ set_utsname
 add_base_config
 replace_template_vars
 fix_tty
-sddm_sleep_hack
 
 display_creation_message
 
