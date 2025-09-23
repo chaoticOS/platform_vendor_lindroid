@@ -29,7 +29,7 @@ public class Constants {
     public static Uri getDownloadUriForCurrentArch() {
 	    return switch (Build.SUPPORTED_ABIS[0]) {
 		    case "arm64-v8a" ->
-				    Uri.parse("https://github.com/Linux-on-droid/lindroid-rootfs/releases/download/nightly/lindroid-rootfs-arm64-plasma.zip.tar.gz");
+				    Uri.parse("https://mirror.codebucket.de/yaap/lindroid/lindroid-rootfs-arm64-plasma.zip.tar.gz");
 		    case "x86_64" ->
 				    Uri.parse("https://github.com/Linux-on-droid/lindroid-rootfs/releases/download/nightly/lindroid-rootfs-amd64-plasma.zip.tar.gz");
 		    case "armeabi-v7a" ->
