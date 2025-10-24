@@ -116,7 +116,9 @@ ndk::ScopedAStatus ComposerImpl::setBuffer(int64_t in_displayId, const HardwareB
     const status_t status = AHardwareBuffer_createFromHandle(
         &desc, nativeHandle, AHARDWAREBUFFER_CREATE_FROM_HANDLE_METHOD_CLONE, &ahwb);
     if (status != NO_ERROR) {
-        ALOGE("%s: createFromHandle failed!", __FUNCTION__);
+        ALOGE("%s: createFromHandle failed! fds=%d ints=%d fmt=%u w=%u h=%u stride=%u",
+              __FUNCTION__, nativeHandle->numFds, nativeHandle->numInts,
+              desc.format, desc.width, desc.height, desc.stride);
         *_aidl_return = static_cast<int32_t>(status);
     }
     ANativeWindowBuffer *buffer = AHardwareBuffer_to_ANativeWindowBuffer(ahwb);
