@@ -85,6 +85,9 @@ ndk::ScopedAStatus ComposerImpl::setVsyncEnabled(int64_t in_displayId, int32_t i
     auto display = mDisplays.find(in_displayId);
     if (display != mDisplays.end()) {
         display->second->mVsyncThread.enableCallback(in_enabled == 1);
+        if (in_enabled == 1 && display->second->plugged && mCallbacks != nullptr) {
+            mCallbacks->onRefreshReceived(mSequenceId, in_displayId);
+        }
     }
     return ndk::ScopedAStatus::ok();
 }
@@ -239,6 +242,7 @@ void ComposerImpl::onSurfaceChanged(int64_t displayId, sp<Surface> surface, ANat
     if (!mDisplays[displayId]->plugged && mCallbacks != nullptr) {
         mDisplays[displayId]->plugged = true;
         mCallbacks->onHotplugReceived(mSequenceId, displayId, true, displayId == 0);
+        mCallbacks->onRefreshReceived(mSequenceId, displayId);
     }
     if (needRefresh && mCallbacks != nullptr) {
         mCallbacks->onRefreshReceived(mSequenceId, displayId);
