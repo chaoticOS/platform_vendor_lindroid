@@ -1,6 +1,7 @@
 # perspectived
 type perspectived, domain;
 typeattribute perspectived coredomain;
+typeattribute perspectived init_dir_mutation_exempt;
 type perspectived_exec, exec_type, file_type, system_file_type;
 
 init_daemon_domain(perspectived)
