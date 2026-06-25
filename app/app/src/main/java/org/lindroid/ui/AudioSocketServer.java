@@ -171,7 +171,7 @@ public class AudioSocketServer {
 
                     // Write data to AudioTrack (if appropriate)
                     audioTrack.write(buffer, 1, bytesRead - 1);
-                    Log.i(TAG, "Audio data written to AudioTrack: " + (bytesRead - 1) + " bytes");
+                    //Log.i(TAG, "Audio data written to AudioTrack: " + (bytesRead - 1) + " bytes");
                 }
             }
         } catch (IOException e) {
